@@ -39,7 +39,7 @@ public class RetrofitInstance {
 
     private static HttpLoggingInterceptor createLoggingInterceptor() {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
         logging.redactHeader("Authorization");
         logging.redactHeader("Cookie");
         return logging;
