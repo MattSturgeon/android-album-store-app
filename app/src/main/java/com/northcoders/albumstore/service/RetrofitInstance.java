@@ -1,9 +1,10 @@
 package com.northcoders.albumstore.service;
 
+import com.northcoders.albumstore.gson.GsonConfig;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitInstance {
     private static final String BASE_URL = "http://10.0.2.2:8080/api/v1/";
@@ -27,7 +28,7 @@ public class RetrofitInstance {
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(createClient())
-                .addConverterFactory(createGsonFactory())
+                .addConverterFactory(GsonConfig.converterFactory())
                 .build();
     }
 
@@ -43,9 +44,5 @@ public class RetrofitInstance {
         logging.redactHeader("Authorization");
         logging.redactHeader("Cookie");
         return logging;
-    }
-
-    private static GsonConverterFactory createGsonFactory() {
-        return GsonConverterFactory.create();
     }
 }

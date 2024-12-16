@@ -1,15 +1,13 @@
 package com.northcoders.albumstore.model;
 
+import java.time.Year;
 import java.util.List;
 
 public class AlbumDTO {
     private long id;
     private String title;
     private String genre;
-    // TODO: store as java.time.Year
-    // Need a JsonSerializer/JsonDeserializer type adapter
-    // or maybe an InstanceCreator
-    private String released;
+    private Year released;
     private long quantity;
     private List<ArtistDTO> artists;
 
@@ -25,7 +23,7 @@ public class AlbumDTO {
         return genre;
     }
 
-    public String getReleased() {
+    public Year getReleased() {
         return released;
     }
 
