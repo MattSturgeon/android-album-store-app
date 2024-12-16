@@ -32,7 +32,17 @@ public class RetrofitInstance {
     }
 
     private static OkHttpClient createClient() {
-        return new OkHttpClient.Builder().build();
+        return new OkHttpClient.Builder()
+                .addInterceptor(createLoggingInterceptor())
+                .build();
+    }
+
+    private static HttpLoggingInterceptor createLoggingInterceptor() {
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        logging.redactHeader("Authorization");
+        logging.redactHeader("Cookie");
+        return logging;
     }
 
     private static GsonConverterFactory createGsonFactory() {
