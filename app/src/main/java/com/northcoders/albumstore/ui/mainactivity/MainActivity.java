@@ -10,9 +10,10 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.flexbox.FlexDirection;
+import com.google.android.flexbox.FlexboxLayoutManager;
 import com.northcoders.albumstore.R;
 import com.northcoders.albumstore.databinding.ActivityMainBinding;
 import com.northcoders.albumstore.model.Album;
@@ -55,10 +56,8 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = binding.recyclerView;
         AlbumAdapter albumAdapter = new AlbumAdapter(albums);
         recyclerView.setAdapter(albumAdapter);
-        // TODO: look into using a reactive layout manager, e.g. FlexboxLayoutManager
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
-        gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
-        recyclerView.setLayoutManager(gridLayoutManager);
+        FlexboxLayoutManager flexboxLayoutManager = new FlexboxLayoutManager(this, FlexDirection.ROW);
+        recyclerView.setLayoutManager(flexboxLayoutManager);
         albumAdapter.notifyDataSetChanged();
     }
 }
