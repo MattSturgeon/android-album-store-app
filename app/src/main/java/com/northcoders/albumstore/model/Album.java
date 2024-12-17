@@ -1,10 +1,13 @@
 package com.northcoders.albumstore.model;
 
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
+
 import java.time.Year;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Album {
+public class Album extends BaseObservable {
     private long id;
     private String title;
     private String genre;
@@ -16,26 +19,32 @@ public class Album {
         return id;
     }
 
+    @Bindable
     public String getTitle() {
         return title;
     }
 
+    @Bindable
     public String getGenre() {
         return genre;
     }
 
+    @Bindable
     public Year getReleased() {
         return released;
     }
 
+    @Bindable
     public long getQuantity() {
         return quantity;
     }
 
+    @Bindable
     public List<Artist> getArtists() {
         return artists;
     }
 
+    @Bindable
     public String getArtistString() {
         // TODO: implement oxford comma in a string utils class
         String deliminator = getArtists().size() == 2 ? "and" : ",";
