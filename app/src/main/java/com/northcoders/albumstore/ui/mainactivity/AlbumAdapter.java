@@ -1,0 +1,58 @@
+package com.northcoders.albumstore.ui.mainactivity;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.northcoders.albumstore.R;
+import com.northcoders.albumstore.databinding.AlbumItemBinding;
+import com.northcoders.albumstore.model.Album;
+
+import java.util.List;
+
+public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder> {
+
+    private final List<Album> albums;
+
+    public AlbumAdapter(List<Album> albums) {
+        this.albums = albums;
+    }
+
+    @Override
+    public @NonNull AlbumViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        Context context = parent.getContext();
+        AlbumItemBinding binding = DataBindingUtil.inflate(
+                LayoutInflater.from(context),
+                R.layout.album_item,
+                parent,
+                false
+        );
+        return new AlbumViewHolder(binding);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull AlbumViewHolder holder, int position) {
+        Album album = albums.get(position);
+        holder.binding.setAlbum(album);
+    }
+
+    @Override
+    public int getItemCount() {
+        return albums.size();
+    }
+
+    public static class AlbumViewHolder extends RecyclerView.ViewHolder {
+
+        @NonNull
+        private final AlbumItemBinding binding;
+
+        public AlbumViewHolder(@NonNull AlbumItemBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+        }
+    }
+}
