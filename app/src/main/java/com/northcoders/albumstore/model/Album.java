@@ -47,7 +47,7 @@ public class Album extends BaseObservable {
     @Bindable
     public String getArtistString() {
         // TODO: implement oxford comma in a string utils class
-        String deliminator = getArtists().size() == 2 ? "and" : ",";
+        String deliminator = getArtists().size() == 2 ? " and " : ", ";
         return getArtists().stream()
                 .map(Artist::getName)
                 .collect(Collectors.joining(deliminator));
