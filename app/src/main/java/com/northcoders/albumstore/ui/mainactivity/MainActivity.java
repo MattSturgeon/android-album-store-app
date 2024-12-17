@@ -1,5 +1,6 @@
 package com.northcoders.albumstore.ui.mainactivity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -7,15 +8,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.lifecycle.MutableLiveData;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.northcoders.albumstore.R;
+import com.northcoders.albumstore.databinding.ActivityMainBinding;
 import com.northcoders.albumstore.model.Album;
-import com.northcoders.albumstore.model.AlbumRepository;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    private MainActivityViewModel viewModel;
+    private ActivityMainBinding binding;
+    private RecyclerView recyclerView;
+    private List<Album> albums;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +37,28 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        AlbumRepository albumRepository = new AlbumRepository(getApplication());
-        MutableLiveData<List<Album>> albums = albumRepository.getAlbums();
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        getAllAlbums();
+        // TODO: add a way to "refresh" albums
+    }
+
+    private void getAllAlbums() {
+        viewModel.getAlbums().observe(this, newAlbums -> {
+            albums = newAlbums;
+            displayInRecyclerView();
+        });
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void displayInRecyclerView() {
+        recyclerView = binding.recyclerView;
+        AlbumAdapter albumAdapter = new AlbumAdapter(albums);
+        recyclerView.setAdapter(albumAdapter);
+        // TODO: look into using a reactive layout manager, e.g. FlexboxLayoutManager
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+        gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        recyclerView.setLayoutManager(gridLayoutManager);
+        albumAdapter.notifyDataSetChanged();
     }
 }
