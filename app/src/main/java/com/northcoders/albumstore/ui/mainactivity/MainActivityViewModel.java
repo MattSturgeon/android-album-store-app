@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.northcoders.albumstore.model.AlbumDTO;
+import com.northcoders.albumstore.model.Album;
 import com.northcoders.albumstore.model.AlbumRepository;
 
 import java.util.List;
@@ -24,7 +24,7 @@ public class MainActivityViewModel extends AndroidViewModel {
         this.albumRepository = albumRepository;
     }
 
-    public LiveData<List<AlbumDTO>> getAlbums() {
+    public LiveData<List<Album>> getAlbums() {
         return albumRepository.getAlbums();
     }
 }

@@ -18,22 +18,22 @@ import retrofit2.Response;
 public class AlbumRepository {
 
     private static final String TAG = AlbumRepository.class.getSimpleName();
-    private final MutableLiveData<List<AlbumDTO>> albums = new MutableLiveData<>();
+    private final MutableLiveData<List<Album>> albums = new MutableLiveData<>();
     private final Application application;
 
     public AlbumRepository(Application application) {
         this.application = application;
     }
 
-    public MutableLiveData<List<AlbumDTO>> getAlbums() {
-        Callback<List<AlbumDTO>> callback = new Callback<>() {
+    public MutableLiveData<List<Album>> getAlbums() {
+        Callback<List<Album>> callback = new Callback<>() {
             @Override
-            public void onResponse(@NonNull Call<List<AlbumDTO>> call, @NonNull Response<List<AlbumDTO>> response) {
+            public void onResponse(@NonNull Call<List<Album>> call, @NonNull Response<List<Album>> response) {
                 albums.setValue(response.body());
             }
 
             @Override
-            public void onFailure(@NonNull Call<List<AlbumDTO>> call, @NonNull Throwable throwable) {
+            public void onFailure(@NonNull Call<List<Album>> call, @NonNull Throwable throwable) {
                 Log.e(TAG, Optional.ofNullable(throwable.getMessage()).orElse("Unknown error"));
             }
         };

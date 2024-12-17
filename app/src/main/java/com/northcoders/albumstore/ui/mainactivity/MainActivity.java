@@ -10,7 +10,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.MutableLiveData;
 
 import com.northcoders.albumstore.R;
-import com.northcoders.albumstore.model.AlbumDTO;
+import com.northcoders.albumstore.model.Album;
 import com.northcoders.albumstore.model.AlbumRepository;
 
 import java.util.List;
@@ -29,6 +29,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         AlbumRepository albumRepository = new AlbumRepository(getApplication());
-        MutableLiveData<List<AlbumDTO>> albums = albumRepository.getAlbums();
+        MutableLiveData<List<Album>> albums = albumRepository.getAlbums();
     }
 }

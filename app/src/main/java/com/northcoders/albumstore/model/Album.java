@@ -4,13 +4,13 @@ import java.time.Year;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class AlbumDTO {
+public class Album {
     private long id;
     private String title;
     private String genre;
     private Year released;
     private long quantity;
-    private List<ArtistDTO> artists;
+    private List<Artist> artists;
 
     public long getId() {
         return id;
@@ -32,7 +32,7 @@ public class AlbumDTO {
         return quantity;
     }
 
-    public List<ArtistDTO> getArtists() {
+    public List<Artist> getArtists() {
         return artists;
     }
 
@@ -40,7 +40,7 @@ public class AlbumDTO {
         // TODO: implement oxford comma in a string utils class
         String deliminator = getArtists().size() == 2 ? "and" : ",";
         return getArtists().stream()
-                .map(ArtistDTO::getName)
+                .map(Artist::getName)
                 .collect(Collectors.joining(deliminator));
     }
 }

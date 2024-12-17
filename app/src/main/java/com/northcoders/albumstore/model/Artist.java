@@ -1,6 +1,6 @@
 package com.northcoders.albumstore.model;
 
-public class ArtistDTO {
+public class Artist {
     private long id;
     private String name;
 
