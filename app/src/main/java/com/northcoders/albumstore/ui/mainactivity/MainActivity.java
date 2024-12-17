@@ -1,4 +1,4 @@
-package com.northcoders.albumstore;
+package com.northcoders.albumstore.ui.mainactivity;
 
 import android.os.Bundle;
 
@@ -9,6 +9,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.MutableLiveData;
 
+import com.northcoders.albumstore.R;
 import com.northcoders.albumstore.model.AlbumDTO;
 import com.northcoders.albumstore.model.AlbumRepository;
 
