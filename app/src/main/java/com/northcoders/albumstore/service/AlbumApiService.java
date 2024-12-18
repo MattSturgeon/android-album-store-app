@@ -1,6 +1,7 @@
 package com.northcoders.albumstore.service;
 
 import com.northcoders.albumstore.model.Album;
+import com.northcoders.albumstore.model.AlbumRequestDTO;
 
 import java.util.List;
 
@@ -15,5 +16,5 @@ public interface AlbumApiService {
     Call<List<Album>> listAlbums();
 
     @POST("albums")
-    Call<Album> addAlbum(@Body Album album);
+    Call<Album> addAlbum(@Body AlbumRequestDTO album);
 }

@@ -1,14 +1,23 @@
 package com.northcoders.albumstore.model;
 
+import androidx.annotation.Nullable;
+
 public class Artist {
-    private long id;
+    @Nullable
+    private Long id;
+    @Nullable
     private String name;
 
-    public long getId() {
+    public Artist(@Nullable Long id, @Nullable String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public @Nullable Long getId() {
         return id;
     }
 
-    public String getName() {
+    public @Nullable String getName() {
         return name;
     }
 }

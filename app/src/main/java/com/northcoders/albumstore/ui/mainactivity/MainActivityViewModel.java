@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 
 import com.northcoders.albumstore.model.Album;
 import com.northcoders.albumstore.model.AlbumRepository;
+import com.northcoders.albumstore.model.AlbumRequestDTO;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class MainActivityViewModel extends AndroidViewModel {
         return albumRepository.getAlbums();
     }
 
-    public void addAlbum(Album album) {
+    public void addAlbum(AlbumRequestDTO album) {
         albumRepository.addAlbum(album);
     }
 }

@@ -46,7 +46,7 @@ public class AlbumRepository {
         return albums;
     }
 
-    public void addAlbum(Album album) {
+    public void addAlbum(AlbumRequestDTO album) {
         Callback<Album> callback = new Callback<>() {
             @Override
             public void onResponse(@NonNull Call<Album> call, @NonNull Response<Album> response) {
