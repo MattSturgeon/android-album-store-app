@@ -2,6 +2,7 @@ package com.northcoders.albumstore.model;
 
 import android.app.Application;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
@@ -43,5 +44,33 @@ public class AlbumRepository {
                 .enqueue(callback);
 
         return albums;
+    }
+
+    public void addAlbum(Album album) {
+        Callback<Album> callback = new Callback<>() {
+            @Override
+            public void onResponse(@NonNull Call<Album> call, @NonNull Response<Album> response) {
+                Album album = response.body();
+
+                if (album == null) {
+                    Log.e(TAG, "POST /albums request was successful, but response contains no album");
+                    Toast.makeText(application, "Something went wrong!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                String text = "Successfully added " + album.getTitle();
+                Log.i(TAG, text + " with id " + album.getId());
+                Toast.makeText(application, text, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Album> call, @NonNull Throwable throwable) {
+                Log.e(TAG, Optional.ofNullable(throwable.getMessage()).orElse("Unknown error"));
+                Toast.makeText(application, "Something went wrong!", Toast.LENGTH_SHORT).show();
+            }
+        };
+        RetrofitInstance.getService()
+                .addAlbum(album)
+                .enqueue(callback);
     }
 }
