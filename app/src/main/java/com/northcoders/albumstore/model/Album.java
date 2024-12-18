@@ -3,6 +3,8 @@ package com.northcoders.albumstore.model;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.time.Year;
 import java.util.List;
 
@@ -12,6 +14,8 @@ public class Album extends BaseObservable {
     private String genre;
     private Year released;
     private long quantity;
+    @SerializedName("album_art_url")
+    private String albumArtUrl;
     private List<Artist> artists;
 
     public long getId() {
@@ -36,6 +40,11 @@ public class Album extends BaseObservable {
     @Bindable
     public long getQuantity() {
         return quantity;
+    }
+
+    @Bindable
+    public String getAlbumArtUrl() {
+        return albumArtUrl;
     }
 
     @Bindable
