@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="clickHandlers"
+            type="com.northcoders.albumstore.ui.addalbum.AddAlbumClickHandlers" />
+
+        <variable
             name="album"
             type="com.northcoders.albumstore.model.AlbumRequestDTO" />
     </data>
@@ -24,6 +28,7 @@
             android:layout_marginBottom="@dimen/album_form_outer_margin"
             android:backgroundTint="?attr/colorTertiary"
             android:src="@drawable/baseline_close"
+            android:onClick="@{clickHandlers::onCancel}"
             app:tint="?attr/colorOnPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -34,6 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/submit"
+            android:onClick="@{clickHandlers::onSubmit}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/new_album_art_url"/>
 
