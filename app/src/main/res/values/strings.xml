@@ -9,4 +9,5 @@
     <string name="album_art_url_hint">Album Art (URL)</string>
     <string name="album_released_hint">Year Released</string>
     <string name="submit">Submit</string>
+    <string name="add_new_album">Add New Album</string>
 </resources>

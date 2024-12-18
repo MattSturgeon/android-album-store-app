@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        binding.setClickHandler(new MainActivityClickHandlers(this));
         getAllAlbums();
         // TODO: add a way to "refresh" albums
     }
