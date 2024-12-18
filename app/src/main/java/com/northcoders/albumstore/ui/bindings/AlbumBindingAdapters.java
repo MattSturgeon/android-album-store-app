@@ -1,15 +1,19 @@
 package com.northcoders.albumstore.ui.bindings;
 
+import static java.util.stream.Collectors.toList;
+
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.databinding.BindingAdapter;
+import androidx.databinding.InverseBindingAdapter;
 
 import com.bumptech.glide.Glide;
 import com.northcoders.albumstore.model.Artist;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,6 +23,11 @@ public class AlbumBindingAdapters {
     @BindingAdapter("android:text")
     public static void setArtistText(TextView view, List<Artist> artists) {
         view.setText(artistsToString(artists));
+    }
+
+    @InverseBindingAdapter(attribute = "android:text")
+    public static List<Artist> readArtistText(TextView view) {
+        return stringToArtists(view.getText().toString());
     }
 
     @BindingAdapter(value = {"loadImage", "fallbackImage"}, requireAll = false)
@@ -40,5 +49,13 @@ public class AlbumBindingAdapters {
         return artists.stream()
                 .map(Artist::getName)
                 .collect(Collectors.joining(deliminator));
+    }
+
+    private static List<Artist> stringToArtists(String artists) {
+        // FIXME: allow escaping ';'
+        return Arrays.stream(artists.split(";"))
+                .map(String::trim)
+                .map(name -> new Artist(null, name))
+                .collect(toList());
     }
 }
