@@ -1,8 +1,9 @@
 package com.northcoders.albumstore.model;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-public class Artist {
+public class Artist implements Cloneable {
     @Nullable
     private Long id;
     @Nullable
@@ -19,5 +20,10 @@ public class Artist {
 
     public @Nullable String getName() {
         return name;
+    }
+
+    @Override
+    public @NonNull Artist clone() {
+        return new Artist(getId(), getName());
     }
 }

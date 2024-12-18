@@ -2,6 +2,7 @@ package com.northcoders.albumstore.model;
 
 import static java.util.stream.Collectors.toList;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
@@ -12,7 +13,7 @@ import com.google.gson.annotations.SerializedName;
 import java.time.Year;
 import java.util.List;
 
-public class AlbumRequestDTO extends BaseObservable {
+public class AlbumRequestDTO extends BaseObservable implements Cloneable {
     private String title;
     private String genre;
     private Year released;
@@ -76,5 +77,20 @@ public class AlbumRequestDTO extends BaseObservable {
     public void setArtists(List<Artist> artists) {
         this.artists = artists;
         notifyPropertyChanged(BR.artists);
+    }
+
+    @Override
+    public @NonNull AlbumRequestDTO clone() {
+        try {
+            AlbumRequestDTO clone = (AlbumRequestDTO) super.clone();
+            clone.setTitle(getTitle());
+            clone.setGenre(getGenre());
+            clone.setReleased(getReleased());
+            clone.setAlbumArtUrl(getAlbumArtUrl());
+            clone.setArtists(getArtists().stream().map(Artist::clone).collect(toList()));
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }

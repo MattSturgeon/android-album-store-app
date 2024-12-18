@@ -1,5 +1,8 @@
 package com.northcoders.albumstore.model;
 
+import static java.util.stream.Collectors.toList;
+
+import androidx.annotation.NonNull;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
@@ -8,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
 import java.time.Year;
 import java.util.List;
 
-public class Album extends BaseObservable {
+public class Album extends BaseObservable implements Cloneable {
     private long id;
     private String title;
     private String genre;
@@ -50,5 +53,22 @@ public class Album extends BaseObservable {
     @Bindable
     public List<Artist> getArtists() {
         return artists;
+    }
+
+    @Override
+    public @NonNull Album clone() {
+        try {
+            Album clone = (Album) super.clone();
+            clone.id = getId();
+            clone.title = getTitle();
+            clone.genre = getGenre();
+            clone.released = getReleased();
+            clone.quantity = getQuantity();
+            clone.albumArtUrl = getAlbumArtUrl();
+            clone.artists = getArtists().stream().map(Artist::clone).collect(toList());
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }
