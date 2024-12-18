@@ -7,11 +7,14 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.databinding.BindingAdapter;
 import androidx.databinding.InverseBindingAdapter;
 
 import com.bumptech.glide.Glide;
 import com.northcoders.albumstore.model.Artist;
+
+import org.jetbrains.annotations.Contract;
 
 import java.util.Arrays;
 import java.util.List;
@@ -21,17 +24,17 @@ public class AlbumBindingAdapters {
     private static final String TAG = AlbumBindingAdapters.class.getSimpleName();
 
     @BindingAdapter("android:text")
-    public static void setArtistText(TextView view, List<Artist> artists) {
+    public static void setArtistText(TextView view, @Nullable List<Artist> artists) {
         view.setText(artistsToString(artists));
     }
 
     @InverseBindingAdapter(attribute = "android:text")
-    public static List<Artist> readArtistText(TextView view) {
+    public static @Nullable List<Artist> readArtistText(TextView view) {
         return stringToArtists(view.getText().toString());
     }
 
     @BindingAdapter(value = {"loadImage", "fallbackImage"}, requireAll = false)
-    public static void getImageUrl(ImageView view, String url, Drawable fallbackImage) {
+    public static void getImageUrl(ImageView view, @Nullable String url, @Nullable Drawable fallbackImage) {
         if (url != null) {
             Glide.with(view.getContext())
                     .load(url)
@@ -43,7 +46,11 @@ public class AlbumBindingAdapters {
         }
     }
 
-    private static String artistsToString(List<Artist> artists) {
+    @Contract("null->null")
+    private static @Nullable String artistsToString(@Nullable List<Artist> artists) {
+        if (artists == null) {
+            return null;
+        }
         // TODO: implement oxford comma in a string utils class
         String deliminator = artists.size() == 2 ? " and " : ", ";
         return artists.stream()
@@ -51,10 +58,15 @@ public class AlbumBindingAdapters {
                 .collect(Collectors.joining(deliminator));
     }
 
-    private static List<Artist> stringToArtists(String artists) {
+    @Contract("null->null")
+    private static @Nullable List<Artist> stringToArtists(@Nullable String artists) {
+        if (artists == null) {
+            return null;
+        }
         // FIXME: allow escaping ';'
         return Arrays.stream(artists.split(";"))
                 .map(String::trim)
+                .filter(s -> !s.isBlank())
                 .map(name -> new Artist(null, name))
                 .collect(toList());
     }
