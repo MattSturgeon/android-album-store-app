@@ -45,6 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                android:alpha="0.8"
                 android:contentDescription="@string/album_image_desc"
                 android:src="@drawable/baseline_library_music"
                 app:layout_constraintEnd_toEndOf="parent"
