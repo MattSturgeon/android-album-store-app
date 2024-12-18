@@ -4,4 +4,9 @@
     <string name="artist_hint">Artist</string>
     <string name="album_image_desc">Album icon</string>
     <string name="album_art_desc">Album Cover</string>
+    <string name="album_artist_hint">Artist Names - separated by ;</string>
+    <string name="album_genre_hint">Genre</string>
+    <string name="album_art_url_hint">Album Art (URL)</string>
+    <string name="album_released_hint">Year Released</string>
+    <string name="submit">Submit</string>
 </resources>
