@@ -17,9 +17,11 @@ import java.util.List;
 public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder> {
 
     private final List<Album> albums;
+    private final MainActivityClickHandlers clickHandler;
 
-    public AlbumAdapter(List<Album> albums) {
+    public AlbumAdapter(List<Album> albums, MainActivityClickHandlers clickHandler) {
         this.albums = albums;
+        this.clickHandler = clickHandler;
     }
 
     @Override
@@ -31,6 +33,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHol
                 parent,
                 false
         );
+        binding.setClickHandler(clickHandler);
         return new AlbumViewHolder(binding);
     }
 

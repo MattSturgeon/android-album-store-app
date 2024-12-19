@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
+import com.northcoders.albumstore.model.Album;
 import com.northcoders.albumstore.ui.addalbum.AddNewAlbumActivity;
 
 public class MainActivityClickHandlers {
@@ -21,5 +23,10 @@ public class MainActivityClickHandlers {
         Log.i(TAG, "Clicked on NewAlbum, starting activity");
         Intent intent = new Intent(context, AddNewAlbumActivity.class);
         context.startActivity(intent);
+    }
+
+    public void onClickAlbum(Album album) {
+        // TODO: show update album activity
+        Toast.makeText(context, "Clicked on " + album.getTitle(), Toast.LENGTH_SHORT).show();
     }
 }

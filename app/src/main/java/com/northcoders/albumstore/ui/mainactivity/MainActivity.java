@@ -22,6 +22,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private MainActivityClickHandlers clickHandler;
     private MainActivityViewModel viewModel;
     private ActivityMainBinding binding;
     private RecyclerView recyclerView;
@@ -38,9 +39,10 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        clickHandler = new MainActivityClickHandlers(this);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        binding.setClickHandler(clickHandler);
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
-        binding.setClickHandler(new MainActivityClickHandlers(this));
         getAllAlbums();
         // TODO: add a way to "refresh" albums
     }
@@ -55,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("NotifyDataSetChanged")
     private void displayInRecyclerView() {
         recyclerView = binding.recyclerView;
-        AlbumAdapter albumAdapter = new AlbumAdapter(albums);
+        AlbumAdapter albumAdapter = new AlbumAdapter(albums, clickHandler);
         recyclerView.setAdapter(albumAdapter);
         FlexboxLayoutManager flexboxLayoutManager = new FlexboxLayoutManager(this, FlexDirection.ROW);
         recyclerView.setLayoutManager(flexboxLayoutManager);
