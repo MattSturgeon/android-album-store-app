@@ -28,10 +28,11 @@ public class AddAlbumClickHandlers {
         // Show a toast and/or inline validation error
 
         Log.i(TAG, "tapped submit");
-        Toast.makeText(context, "Submitting...", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(context, MainActivity.class);
 
         AlbumRequestDTO copy = album.clone();
         mainActivityViewModel.addAlbum(copy);
+        context.startActivity(intent);
     }
 
     public void onCancel(View view) {
