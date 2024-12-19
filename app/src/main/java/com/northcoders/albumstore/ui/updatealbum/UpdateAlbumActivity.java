@@ -1,12 +1,10 @@
 package com.northcoders.albumstore.ui.updatealbum;
 
-import android.content.Intent;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
@@ -20,7 +18,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.northcoders.albumstore.R;
 import com.northcoders.albumstore.databinding.ActivityUpdateAlbumBinding;
 import com.northcoders.albumstore.model.Album;
-import com.northcoders.albumstore.ui.mainactivity.MainActivity;
 import com.northcoders.albumstore.ui.mainactivity.MainActivityViewModel;
 
 public class UpdateAlbumActivity extends AppCompatActivity {
@@ -42,7 +39,8 @@ public class UpdateAlbumActivity extends AppCompatActivity {
 
         Album album = getAlbum();
         if (album == null) {
-            exit("Album was null");
+            Log.e(TAG, "Album was null");
+            finish();
             return;
         }
         Log.d(TAG, String.format("Extracted album from parcel (id: %d)", album.getId()));
@@ -64,11 +62,5 @@ public class UpdateAlbumActivity extends AppCompatActivity {
             return getIntent().getParcelableExtra(name, type);
         }
         return getIntent().getParcelableExtra(name);
-    }
-
-    private void exit(String error) {
-        Log.e(TAG, error);
-        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(this, MainActivity.class));
     }
 }
