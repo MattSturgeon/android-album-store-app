@@ -49,6 +49,7 @@ public class UpdateAlbumActivity extends AppCompatActivity {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_update_album);
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        binding.setClickHandler(new UpdateAlbumClickHandlers(viewModel, this, album));
         binding.setAlbum(album);
     }
 
