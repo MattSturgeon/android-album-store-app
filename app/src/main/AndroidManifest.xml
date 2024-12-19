@@ -17,10 +17,12 @@
         tools:targetApi="31">
         <activity
             android:name=".ui.updatealbum.UpdateAlbumActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".ui.mainactivity.MainActivity" />
         <activity
             android:name=".ui.addalbum.AddNewAlbumActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".ui.mainactivity.MainActivity" />
         <activity
             android:name=".ui.mainactivity.MainActivity"
             android:exported="true">
