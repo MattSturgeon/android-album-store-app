@@ -115,6 +115,21 @@
             app:layout_constraintTop_toBottomOf="@id/update_album_genre" />
 
         <EditText
+            android:id="@+id/update_album_qty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="42dp"
+            android:ems="10"
+            android:hint="@string/album_quantity_hint"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:text="@={`` + album.quantity}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/update_album_released" />
+
+
+        <EditText
             android:id="@+id/update_album_art_url"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -126,7 +141,7 @@
             android:text="@={album.albumArtUrl}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/update_album_released" />
+            app:layout_constraintTop_toBottomOf="@id/update_album_qty" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

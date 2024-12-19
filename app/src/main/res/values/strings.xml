@@ -8,6 +8,7 @@
     <string name="album_genre_hint">Genre</string>
     <string name="album_art_url_hint">Album Art (URL)</string>
     <string name="album_released_hint">Year Released</string>
+    <string name="album_quantity_hint">Quantity in stock</string>
     <string name="submit">Submit</string>
     <string name="add_new_album">Add New Album</string>
     <string name="update_submit_text">Update</string>
