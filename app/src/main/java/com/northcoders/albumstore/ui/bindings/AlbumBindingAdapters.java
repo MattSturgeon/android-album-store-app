@@ -2,16 +2,12 @@ package com.northcoders.albumstore.ui.bindings;
 
 import static java.util.stream.Collectors.toList;
 
-import android.graphics.drawable.Drawable;
-import android.util.Log;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.BindingAdapter;
 import androidx.databinding.InverseBindingAdapter;
 
-import com.bumptech.glide.Glide;
 import com.northcoders.albumstore.model.Artist;
 
 import org.jetbrains.annotations.Contract;
@@ -31,19 +27,6 @@ public class AlbumBindingAdapters {
     @InverseBindingAdapter(attribute = "android:text")
     public static @Nullable List<Artist> readArtistText(TextView view) {
         return stringToArtists(view.getText().toString());
-    }
-
-    @BindingAdapter(value = {"loadImage", "fallbackImage"}, requireAll = false)
-    public static void getImageUrl(ImageView view, @Nullable String url, @Nullable Drawable fallbackImage) {
-        if (url != null) {
-            Glide.with(view.getContext())
-                    .load(url)
-                    .into(view);
-        } else if (fallbackImage != null) {
-            view.setImageDrawable(fallbackImage);
-        } else {
-            Log.w(TAG, "attempted to load image with no url or fallback");
-        }
     }
 
     @Contract("null->null")
