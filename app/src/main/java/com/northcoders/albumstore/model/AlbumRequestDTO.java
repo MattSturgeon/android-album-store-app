@@ -93,4 +93,14 @@ public class AlbumRequestDTO extends BaseObservable implements Cloneable {
             throw new AssertionError();
         }
     }
+
+    public static AlbumRequestDTO from(Album album) {
+        AlbumRequestDTO dto = new AlbumRequestDTO();
+        dto.title = album.getTitle();
+        dto.genre = album.getGenre();
+        dto.released = album.getReleased();
+        dto.albumArtUrl = album.getAlbumArtUrl();
+        dto.artists = album.getArtists().stream().map(Artist::clone).collect(toList());
+        return dto;
+    }
 }
