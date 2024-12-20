@@ -2,8 +2,10 @@ package com.northcoders.albumstore.service;
 
 import com.northcoders.albumstore.model.Album;
 import com.northcoders.albumstore.model.AlbumRequestDTO;
+import com.northcoders.albumstore.model.Genre;
 
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -26,4 +28,7 @@ public interface AlbumApiService {
 
     @DELETE("albums/{id}")
     Call<Void> removeAlbum(@Path("id") long id);
+
+    @GET("genres")
+    Call<Map<String, Genre>> listGenres();
 }
