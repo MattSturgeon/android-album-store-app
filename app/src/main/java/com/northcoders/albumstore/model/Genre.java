@@ -37,6 +37,11 @@ public class Genre extends BaseObservable implements Cloneable, Parcelable {
     }
 
     @Override
+    public @NonNull String toString() {
+        return getDisplayName();
+    }
+
+    @Override
     public @NonNull Genre clone() {
         try {
             Genre clone = (Genre) super.clone();
