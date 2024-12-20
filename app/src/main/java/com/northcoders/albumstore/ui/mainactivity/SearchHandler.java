@@ -9,10 +9,12 @@ import androidx.annotation.Nullable;
 import com.northcoders.albumstore.model.Album;
 import com.northcoders.albumstore.model.Artist;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 class SearchHandler implements SearchView.OnQueryTextListener {
 
@@ -40,21 +42,32 @@ class SearchHandler implements SearchView.OnQueryTextListener {
         List<Album> apply(List<Album> albums);
 
         static AlbumQuery of(@Nullable String text) {
-            // Blank text is a no-op
-            if (text == null || text.isBlank()) {
+
+            // Separate tokens by whitespace and normalise them to lower case
+            // TODO: allow "quoting" tokens that contain whitespace
+            List<String> tokens = Optional.ofNullable(text)
+                    .map(s -> s.split("\\s+"))
+                    .map(Arrays::stream)
+                    .orElseGet(Stream::empty)
+                    .filter(s -> !s.isEmpty())
+                    .map(String::toLowerCase)
+                    .collect(toList());
+
+            // Empty tokens is a no-op
+            if (tokens.isEmpty()) {
                 return albums -> albums;
             }
 
             // Otherwise use the impl below
-            return new AlbumQueryImpl(text.toLowerCase());
+            return new AlbumQueryImpl(tokens);
         }
     }
 
     private static class AlbumQueryImpl implements AlbumQuery {
-        private final String query;
+        private final List<String> tokens;
 
-        private AlbumQueryImpl(String query) {
-            this.query = query;
+        private AlbumQueryImpl(List<String> tokens) {
+            this.tokens = tokens;
         }
 
         public List<Album> apply(List<Album> albums) {
@@ -74,7 +87,7 @@ class SearchHandler implements SearchView.OnQueryTextListener {
         private boolean checkString(@Nullable String string) {
             return Optional.ofNullable(string)
                     .map(String::toLowerCase)
-                    .map(s -> s.contains(query))
+                    .map(this::matchesAnyToken)
                     .orElse(false);
         }
 
@@ -84,6 +97,10 @@ class SearchHandler implements SearchView.OnQueryTextListener {
             }
 
             return artists.stream().anyMatch(this::check);
+        }
+
+        private boolean matchesAnyToken(String string) {
+            return tokens.stream().anyMatch(string::contains);
         }
     }
 
