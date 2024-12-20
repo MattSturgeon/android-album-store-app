@@ -2,6 +2,7 @@ package com.northcoders.albumstore.ui.mainactivity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.widget.SearchView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,6 +44,10 @@ public class MainActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setClickHandler(clickHandler);
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+
+        SearchView searchBar = findViewById(R.id.search_bar);
+        searchBar.setOnQueryTextListener(new SearchHandler(this));
+
         getAllAlbums();
         // TODO: add a way to "refresh" albums
     }
