@@ -37,6 +37,7 @@ public class AlbumRepository {
             @Override
             public void onFailure(@NonNull Call<List<Album>> call, @NonNull Throwable throwable) {
                 Log.e(TAG, Optional.ofNullable(throwable.getMessage()).orElse("Unknown error"));
+                Toast.makeText(application, "Something went wrong!", Toast.LENGTH_SHORT).show();
             }
         };
 
