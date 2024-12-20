@@ -1,6 +1,5 @@
 package com.northcoders.albumstore.ui.mainactivity;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.SearchView;
 
@@ -27,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private MainActivityViewModel viewModel;
     private ActivityMainBinding binding;
     private RecyclerView recyclerView;
+    private AlbumAdapter albumAdapter;
     private List<Album> albums;
 
     @Override
@@ -45,11 +45,11 @@ public class MainActivity extends AppCompatActivity {
         binding.setClickHandler(clickHandler);
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
 
-        SearchView searchBar = findViewById(R.id.search_bar);
-        searchBar.setOnQueryTextListener(new SearchHandler(this));
-
         getAllAlbums();
         // TODO: add a way to "refresh" albums
+
+        SearchView searchBar = findViewById(R.id.search_bar);
+        searchBar.setOnQueryTextListener(SearchHandler.forAlbums(() -> albums).withCallback(albums -> albumAdapter.setAlbums(albums)));
     }
 
     private void getAllAlbums() {
@@ -59,13 +59,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     private void displayInRecyclerView() {
         recyclerView = binding.recyclerView;
-        AlbumAdapter albumAdapter = new AlbumAdapter(albums, clickHandler);
+        albumAdapter = new AlbumAdapter(albums, clickHandler);
         recyclerView.setAdapter(albumAdapter);
         FlexboxLayoutManager flexboxLayoutManager = new FlexboxLayoutManager(this, FlexDirection.ROW);
         recyclerView.setLayoutManager(flexboxLayoutManager);
-        albumAdapter.notifyDataSetChanged();
     }
 }

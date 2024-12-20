@@ -1,5 +1,8 @@
 package com.northcoders.albumstore.ui.mainactivity;
 
+import static java.util.Collections.emptyList;
+
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -16,12 +19,16 @@ import java.util.List;
 
 public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder> {
 
-    private final List<Album> albums;
+    private List<Album> albums = emptyList();
     private final MainActivityClickHandlers clickHandler;
 
-    public AlbumAdapter(List<Album> albums, MainActivityClickHandlers clickHandler) {
-        this.albums = albums;
+    public AlbumAdapter(MainActivityClickHandlers clickHandler) {
         this.clickHandler = clickHandler;
+    }
+
+    public AlbumAdapter(List<Album> albums, MainActivityClickHandlers clickHandler) {
+        this(clickHandler);
+        setAlbums(albums);
     }
 
     @Override
@@ -46,6 +53,12 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHol
     @Override
     public int getItemCount() {
         return albums.size();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void setAlbums(List<Album> albums) {
+        this.albums = albums;
+        this.notifyDataSetChanged();
     }
 
     public static class AlbumViewHolder extends RecyclerView.ViewHolder {
