@@ -49,8 +49,7 @@ public class AddNewAlbumActivity extends AppCompatActivity {
 
         viewModel.getGenres().observe(this, genres -> {
             Spinner view = findViewById(R.id.new_album_genre);
-            GenreAdapter genreAdapter = new GenreAdapter(this, genres);
-            view.setAdapter(genreAdapter);
+            view.setAdapter(new GenreAdapter(this, genres));
             view.setOnItemSelectedListener(genreListenerFactory.forGenres(genres));
         });
     }

@@ -5,6 +5,7 @@ import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
+import android.widget.Spinner;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
@@ -13,12 +14,19 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.databinding.library.baseAdapters.BR;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.northcoders.albumstore.R;
 import com.northcoders.albumstore.databinding.ActivityUpdateAlbumBinding;
 import com.northcoders.albumstore.model.Album;
+import com.northcoders.albumstore.model.Genre;
+import com.northcoders.albumstore.ui.genres.GenreAdapter;
+import com.northcoders.albumstore.ui.genres.GenreListenerFactory;
 import com.northcoders.albumstore.ui.mainactivity.MainActivityViewModel;
+
+import java.util.Collection;
+import java.util.Optional;
 
 public class UpdateAlbumActivity extends AppCompatActivity {
 
@@ -49,6 +57,28 @@ public class UpdateAlbumActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
         binding.setClickHandler(new UpdateAlbumClickHandlers(viewModel, this, album));
         binding.setAlbum(album);
+
+        GenreListenerFactory genreListenerFactory = new GenreListenerFactory(genre -> {
+            binding.getAlbum().setGenre(genre.getKey());
+            binding.notifyPropertyChanged(BR.genre);
+        });
+
+        viewModel.getGenres().observe(this, genres -> {
+            Spinner view = findViewById(R.id.update_album_genre);
+            view.setAdapter(new GenreAdapter(this, genres));
+            Optional.ofNullable(album.getGenre())
+                    .map(genre -> getGenreId(genre, genres.values()))
+                    .ifPresent(genre -> view.setSelection(genre.intValue()));
+            view.setOnItemSelectedListener(genreListenerFactory.forGenres(genres));
+        });
+    }
+
+    private static long getGenreId(String key, Collection<Genre> genres) {
+        return genres.stream()
+                .filter(genre -> genre.getKey().equals(key))
+                .mapToLong(Genre::getId)
+                .findAny()
+                .orElseThrow();
     }
 
     @Nullable

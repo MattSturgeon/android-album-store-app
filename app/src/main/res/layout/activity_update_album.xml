@@ -86,7 +86,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/update_album_title" />
 
-        <EditText
+        <Spinner
             android:id="@+id/update_album_genre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -95,7 +95,6 @@
             android:hint="@string/album_genre_hint"
             android:importantForAutofill="no"
             android:inputType="text"
-            android:text="@={album.genre}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/update_album_artist" />

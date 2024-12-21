@@ -19,7 +19,7 @@ public class GenreAdapter extends ArrayAdapter<Genre> {
         super(context, android.R.layout.simple_spinner_dropdown_item, genres);
     }
 
-    public GenreAdapter(@NonNull Context context, @NonNull Map<String, Genre> genres) {
+    public GenreAdapter(@NonNull Context context, @NonNull Map<?, Genre> genres) {
         this(context, getGenreList(genres));
     }
 
