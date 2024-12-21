@@ -41,6 +41,12 @@ public class AddNewAlbumActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
         binding.setClickHandlers(new AddAlbumClickHandlers(viewModel, this, album));
         binding.setAlbum(album);
+        viewModel.initGenreSpinner(
+                this,
+                R.id.new_album_genre,
+                album.getGenre(),
+                genre -> binding.getAlbum().setGenre(genre.getKey())
+        );
 
         GenreListenerFactory genreListenerFactory = new GenreListenerFactory(genre -> {
             binding.getAlbum().setGenre(genre.getKey());
