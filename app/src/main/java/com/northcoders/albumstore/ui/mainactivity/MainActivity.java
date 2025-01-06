@@ -1,33 +1,26 @@
 package com.northcoders.albumstore.ui.mainactivity;
 
 import android.os.Bundle;
-import android.widget.SearchView;
+import android.util.Log;
+import android.view.MenuItem;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.flexbox.FlexDirection;
-import com.google.android.flexbox.FlexboxLayoutManager;
+import com.google.android.material.navigation.NavigationBarView;
 import com.northcoders.albumstore.R;
-import com.northcoders.albumstore.databinding.ActivityMainBinding;
-import com.northcoders.albumstore.model.Album;
-
-import java.util.List;
+import com.northcoders.albumstore.ui.library.LibraryFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    private MainActivityClickHandlers clickHandler;
+    public static final String TAG = "MainActivity";
+
     private MainActivityViewModel viewModel;
-    private ActivityMainBinding binding;
-    private RecyclerView recyclerView;
-    private AlbumAdapter albumAdapter;
-    private List<Album> albums;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,31 +32,28 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        clickHandler = new MainActivityClickHandlers(this);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        binding.setClickHandler(clickHandler);
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
-
-        getAllAlbums();
-        // TODO: add a way to "refresh" albums
-
-        SearchView searchBar = findViewById(R.id.search_bar);
-        searchBar.setOnQueryTextListener(SearchHandler.forAlbums(() -> albums).withCallback(albums -> albumAdapter.setAlbums(albums)));
+        NavigationBarView navigationBarView = findViewById(R.id.navigation_bar);
+        navigationBarView.setOnItemSelectedListener(this::onNavigationSelected);
+        navigationBarView.setSelectedItemId(R.id.nav_library);
     }
 
-    private void getAllAlbums() {
-        viewModel.getAlbums().observe(this, newAlbums -> {
-            albums = newAlbums;
-            displayInRecyclerView();
-        });
-    }
+    private boolean onNavigationSelected(MenuItem menuItem) {
+        int itemId = menuItem.getItemId();
+        Log.i(TAG, "Navigated to " + itemId);
 
-    private void displayInRecyclerView() {
-        recyclerView = binding.recyclerView;
-        albumAdapter = new AlbumAdapter(albums, clickHandler);
-        recyclerView.setAdapter(albumAdapter);
-        FlexboxLayoutManager flexboxLayoutManager = new FlexboxLayoutManager(this, FlexDirection.ROW);
-        recyclerView.setLayoutManager(flexboxLayoutManager);
+        Fragment dest;
+        if (itemId == R.id.nav_library) {
+            dest = new LibraryFragment();
+        } else {
+            throw new IllegalStateException("Unknown menu itemID " + itemId);
+        }
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_frame, dest)
+                .commit();
+
+        return true;
     }
 }

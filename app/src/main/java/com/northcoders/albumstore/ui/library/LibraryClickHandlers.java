@@ -1,4 +1,4 @@
-package com.northcoders.albumstore.ui.mainactivity;
+package com.northcoders.albumstore.ui.library;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,13 +9,13 @@ import com.northcoders.albumstore.model.Album;
 import com.northcoders.albumstore.ui.addalbum.AddNewAlbumActivity;
 import com.northcoders.albumstore.ui.updatealbum.UpdateAlbumActivity;
 
-public class MainActivityClickHandlers {
+public class LibraryClickHandlers {
 
-    private static final String TAG = "MainActivityClickHandlers";
+    private static final String TAG = "LibraryClickHandlers";
 
     private final Context context;
 
-    public MainActivityClickHandlers(Context context) {
+    public LibraryClickHandlers(Context context) {
         this.context = context;
     }
 

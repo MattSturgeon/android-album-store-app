@@ -1,4 +1,4 @@
-package com.northcoders.albumstore.ui.mainactivity;
+package com.northcoders.albumstore.ui.library;
 
 import static java.util.stream.Collectors.toList;
 

@@ -1,4 +1,4 @@
-package com.northcoders.albumstore.ui.mainactivity;
+package com.northcoders.albumstore.ui.library;
 
 import static java.util.Collections.emptyList;
 
@@ -20,13 +20,13 @@ import java.util.List;
 public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder> {
 
     private List<Album> albums = emptyList();
-    private final MainActivityClickHandlers clickHandler;
+    private final LibraryClickHandlers clickHandler;
 
-    public AlbumAdapter(MainActivityClickHandlers clickHandler) {
+    public AlbumAdapter(LibraryClickHandlers clickHandler) {
         this.clickHandler = clickHandler;
     }
 
-    public AlbumAdapter(List<Album> albums, MainActivityClickHandlers clickHandler) {
+    public AlbumAdapter(List<Album> albums, LibraryClickHandlers clickHandler) {
         this(clickHandler);
         setAlbums(albums);
     }

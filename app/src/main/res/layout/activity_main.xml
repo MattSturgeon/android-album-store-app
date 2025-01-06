@@ -3,13 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="clickHandler"
-            type="com.northcoders.albumstore.ui.mainactivity.MainActivityClickHandlers" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
@@ -17,40 +10,23 @@
         android:layout_marginTop="20sp"
         tools:context=".ui.mainactivity.MainActivity">
 
-        <SearchView
-            android:id="@+id/search_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:queryHint="@string/search_hint"
-            android:background="@drawable/search_outline"
-            android:iconifiedByDefault="false"
-            android:layout_margin="10dp"
+        <FrameLayout
+            android:id="@+id/main_frame"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/navigation_bar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginVertical="10dp"
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/navigation_bar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/search_bar" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="40dp"
-            android:contentDescription="@string/add_new_album"
-            android:onClick="@{clickHandler::onNewAlbum}"
-            android:src="@drawable/baseline_add"
-            app:backgroundTint="?attr/colorPrimarySurface"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:maxImageSize="48dp"
-            app:tint="?attr/colorOnPrimary" />
+            app:menu="@menu/main_menu" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
