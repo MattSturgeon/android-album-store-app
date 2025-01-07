@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,31 +45,29 @@ public class LibraryFragment extends Fragment {
         binding = FragmentLibraryBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         binding.setClickHandler(clickHandler);
-        SearchView searchBar = view.findViewById(R.id.search_bar);
-        searchBar.setOnQueryTextListener(SearchHandler.forAlbums(() -> albums).withCallback(albums -> albumAdapter.setAlbums(albums)));
+        viewModel = new ViewModelProvider(requireActivity()).get(MainActivityViewModel.class);
+        getAllAlbums(view);
         return view;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        viewModel = new ViewModelProvider(requireActivity()).get(MainActivityViewModel.class);
-        getAllAlbums();
-        // TODO: add a way to "refresh" albums
-    }
-
-    private void getAllAlbums() {
+    private void getAllAlbums(View libraryView) {
         viewModel.getAlbums().observe(getViewLifecycleOwner(), newAlbums -> {
             albums = newAlbums;
+            albumAdapter = new AlbumAdapter(albums, clickHandler);
+            setupSearch(libraryView);
             displayInRecyclerView();
         });
     }
 
     private void displayInRecyclerView() {
         recyclerView = binding.recyclerView;
-        albumAdapter = new AlbumAdapter(albums, clickHandler);
         recyclerView.setAdapter(albumAdapter);
         FlexboxLayoutManager flexboxLayoutManager = new FlexboxLayoutManager(getContext(), FlexDirection.ROW);
         recyclerView.setLayoutManager(flexboxLayoutManager);
+    }
+
+    private void setupSearch(View libraryView) {
+        SearchView searchBar = libraryView.findViewById(R.id.search_bar);
+        searchBar.setOnQueryTextListener(SearchHandler.forAlbums(() -> albums).withCallback(albums -> albumAdapter.setAlbums(albums)));
     }
 }
