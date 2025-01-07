@@ -20,13 +20,13 @@ import java.util.List;
 public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder> {
 
     private List<Album> albums = emptyList();
-    private final LibraryClickHandlers clickHandler;
+    private final AlbumClickHandler clickHandler;
 
-    public AlbumAdapter(LibraryClickHandlers clickHandler) {
+    public AlbumAdapter(AlbumClickHandler clickHandler) {
         this.clickHandler = clickHandler;
     }
 
-    public AlbumAdapter(List<Album> albums, LibraryClickHandlers clickHandler) {
+    public AlbumAdapter(List<Album> albums, AlbumClickHandler clickHandler) {
         this(clickHandler);
         setAlbums(albums);
     }

@@ -1,6 +1,8 @@
 package com.northcoders.albumstore.ui.library;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +19,14 @@ import com.northcoders.albumstore.R;
 import com.northcoders.albumstore.databinding.FragmentLibraryBinding;
 import com.northcoders.albumstore.model.Album;
 import com.northcoders.albumstore.ui.mainactivity.MainActivityViewModel;
+import com.northcoders.albumstore.ui.updatealbum.UpdateAlbumActivity;
 
 import java.util.List;
 
-public class LibraryFragment extends Fragment {
+public class LibraryFragment extends Fragment implements AlbumClickHandler {
 
-    private LibraryClickHandlers clickHandler;
+    private static final String TAG = "LibraryFragment";
+
     private MainActivityViewModel viewModel;
     private FragmentLibraryBinding binding;
     private RecyclerView recyclerView;
@@ -36,7 +40,6 @@ public class LibraryFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        clickHandler = new LibraryClickHandlers(requireActivity());
     }
 
     @Override
@@ -44,16 +47,23 @@ public class LibraryFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentLibraryBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
-        binding.setClickHandler(clickHandler);
         viewModel = new ViewModelProvider(requireActivity()).get(MainActivityViewModel.class);
         getAllAlbums(view);
         return view;
     }
 
+    @Override
+    public void onClickAlbum(Album album) {
+        Log.i(TAG, String.format("Clicked on \"%s\" (id %d)", album.getTitle(), album.getId()));
+        Intent intent = new Intent(requireContext(), UpdateAlbumActivity.class);
+        intent.putExtra("album", album);
+        requireContext().startActivity(intent);
+    }
+
     private void getAllAlbums(View libraryView) {
         viewModel.getAlbums().observe(getViewLifecycleOwner(), newAlbums -> {
             albums = newAlbums;
-            albumAdapter = new AlbumAdapter(albums, clickHandler);
+            albumAdapter = new AlbumAdapter(albums, this);
             setupSearch(libraryView);
             displayInRecyclerView();
         });
