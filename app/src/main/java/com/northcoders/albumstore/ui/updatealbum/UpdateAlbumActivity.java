@@ -5,6 +5,7 @@ import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
+import android.widget.Spinner;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
@@ -49,9 +50,10 @@ public class UpdateAlbumActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
         binding.setClickHandler(new UpdateAlbumClickHandlers(viewModel, this, album));
         binding.setAlbum(album);
+        Spinner spinner = findViewById(R.id.update_album_genre);
         viewModel.initGenreSpinner(
                 this,
-                R.id.update_album_genre,
+                spinner,
                 album.getGenre(),
                 genre -> binding.getAlbum().setGenre(genre.getKey())
         );

@@ -44,19 +44,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_bar" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="40dp"
-            android:contentDescription="@string/add_new_album"
-            android:onClick="@{clickHandler::onNewAlbum}"
-            android:src="@drawable/baseline_add"
-            app:backgroundTint="?attr/colorPrimarySurface"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:maxImageSize="48dp"
-            app:tint="?attr/colorOnPrimary" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     </FrameLayout>

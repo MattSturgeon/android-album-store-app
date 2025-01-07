@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="clickHandlers"
+            type="com.northcoders.albumstore.ui.addalbum.AddAlbumClickHandlers" />
+
+        <variable
+            name="album"
+            type="com.northcoders.albumstore.model.AlbumRequestDTO" />
+    </data>
+
+    <FrameLayout
+        android:id="@+id/add_album"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.addalbum.AddAlbumFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="@dimen/album_form_outer_margin">
+
+            <Button
+                android:id="@+id/new_album_submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{clickHandlers::onSubmit}"
+                android:text="@string/submit"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/new_album_art_url" />
+
+            <EditText
+                android:id="@+id/new_album_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="42dp"
+                android:ems="10"
+                android:hint="@string/album_title_hint"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:text="@={album.title}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!--
+                TODO: support multiple artists
+                    or drop multi-artist support on the backend
+            -->
+            <EditText
+                android:id="@+id/new_album_artist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="42dp"
+                android:ems="10"
+                android:hint="@string/album_artist_hint"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:text="@={album.artists}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/new_album_title" />
+
+            <Spinner
+                android:id="@+id/new_album_genre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="42dp"
+                android:ems="10"
+                android:hint="@string/album_genre_hint"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/new_album_artist" />
+
+            <EditText
+                android:id="@+id/new_album_released"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="42dp"
+                android:ems="10"
+                android:hint="@string/album_released_hint"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:text="@={album.released}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/new_album_genre" />
+
+            <EditText
+                android:id="@+id/new_album_art_url"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="42dp"
+                android:ems="10"
+                android:hint="@string/album_art_url_hint"
+                android:importantForAutofill="no"
+                android:inputType="textUri"
+                android:text="@={album.albumArtUrl}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/new_album_released" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+
+</layout>

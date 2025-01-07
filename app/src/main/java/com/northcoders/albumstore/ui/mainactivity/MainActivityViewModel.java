@@ -66,9 +66,8 @@ public class MainActivityViewModel extends AndroidViewModel {
         return genreRepository.getGenres();
     }
 
-    public void initGenreSpinner(ComponentActivity activity, int spinnerViewId, @Nullable String initialGenreKey, Consumer<Genre> setGenreCallback) {
+    public void initGenreSpinner(ComponentActivity activity, Spinner view, @Nullable String initialGenreKey, Consumer<Genre> setGenreCallback) {
         GenreListenerFactory genreListenerFactory = new GenreListenerFactory(setGenreCallback);
-        Spinner view = activity.findViewById(spinnerViewId);
         getGenres().observe(activity, genres -> {
             view.setAdapter(new GenreAdapter(activity, genres));
             // Initial value

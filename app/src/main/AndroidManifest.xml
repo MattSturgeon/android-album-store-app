@@ -20,10 +20,6 @@
             android:exported="false"
             android:parentActivityName=".ui.mainactivity.MainActivity" />
         <activity
-            android:name=".ui.addalbum.AddNewAlbumActivity"
-            android:exported="false"
-            android:parentActivityName=".ui.mainactivity.MainActivity" />
-        <activity
             android:name=".ui.mainactivity.MainActivity"
             android:exported="true">
             <intent-filter>

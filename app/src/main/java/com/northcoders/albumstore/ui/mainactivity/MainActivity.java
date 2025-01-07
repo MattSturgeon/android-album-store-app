@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.navigation.NavigationBarView;
 import com.northcoders.albumstore.R;
+import com.northcoders.albumstore.ui.addalbum.AddAlbumFragment;
 import com.northcoders.albumstore.ui.library.LibraryFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -45,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
         Fragment dest;
         if (itemId == R.id.nav_library) {
             dest = new LibraryFragment();
+        } else if (itemId == R.id.nav_add_album) {
+            dest = new AddAlbumFragment();
         } else {
             throw new IllegalStateException("Unknown menu itemID " + itemId);
         }

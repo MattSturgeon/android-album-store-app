@@ -15,4 +15,5 @@
     <string name="update_submit_text">Update</string>
     <string name="update_remove_text">Remove</string>
     <string name="menu_library_title">Library</string>
+    <string name="nav_add_album_title">Add Album</string>
 </resources>
