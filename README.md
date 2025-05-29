@@ -17,6 +17,12 @@ This Album Store Android demo app provides a frontend UI for the [Album Store AP
 - Clicking on an album opens an "edit" or "update" form
 - New albums can be added using a similar form
 
+## Screenshots
+
+![Library](.github/images/library.png)
+
+![Add Album](.github/images/add-album.png)
+
 ## TODO
 
 - Refresh album data
